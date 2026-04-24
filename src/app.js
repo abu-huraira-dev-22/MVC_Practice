@@ -1,38 +1,40 @@
-const express = require('express')
-const dotenv = require('dotenv')
-const mongoose = require('mongoose');
-const authRoutes = require('./routes/authRoutes');
-const usersRoutes = require('./routes/UsersRoutes');
+const express = require("express");
+const dotenv = require("dotenv");
+const mongoose = require("mongoose");
+const authRoutes = require("./routes/authRoutes");
+const usersRoutes = require("./routes/UsersRoutes");
 
-dotenv.config()
+dotenv.config();
 
-main().catch(err => console.log(err));
+main().catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb+srv://huraira_db_user:huraira_db_user@cluster0.0mrqd3o.mongodb.net/');
-  console.log('Database is connceted')
-
+  await mongoose.connect(
+    "mongodb+srv://huraira_db_user:huraira_db_user@cluster0.0mrqd3o.mongodb.net/",
+  );
+  console.log("Database is connceted");
 }
 
-const app =express()
+const app = express();
 
-app.get('/health',(req,res)=>{
-    res.json({
-        status:true,
-        message:"Backend is working properly"
-    })
-})
+app.use(express.json());
 
-app.listen(process.env.PORT,()=>{
-    console.log('Server is running',process.env.PORT)
-})
+app.get("/health", (req, res) => {
+  res.json({
+    status: true,
+    message: "Backend is working properly",
+  });
+});
 
-
-// Authentication 
+// Authentication
 // Signup / Login
 
-app.use('api/v1/auth',authRoutes)
+app.use("/api/v1/auth", authRoutes);
 
 // Users
 // get, add, update, delete
-app.use('api/v1/auth',usersRoutes)
+app.use("/api/v1/auth", usersRoutes);
+
+app.listen(process.env.PORT, () => {
+  console.log("Server is running at", process.env.PORT);
+});
