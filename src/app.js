@@ -33,7 +33,7 @@ app.use("/api/v1/auth", authRoutes);
 
 // Users
 // get, add, update, delete
-app.use("/api/v1/auth", usersRoutes);
+app.use("/api/v1/users", usersRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log("Server is running at", process.env.PORT);

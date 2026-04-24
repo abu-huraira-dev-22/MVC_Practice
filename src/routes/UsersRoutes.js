@@ -1,8 +1,9 @@
 const express = require('express')
+const { getUsersController } = require('../controllers/UsersController')
 
 const usersRoutes = express.Router()
 
-// usersRoutes.get('/users',getUserController)
+usersRoutes.get('/',getUsersController)
 // usersRoutes.post('/users',addUserController)
 // usersRoutes.put('/users',updateUserController)
 // usersRoutes.delete('/users',deleteUserController)
