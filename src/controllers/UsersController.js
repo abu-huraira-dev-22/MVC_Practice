@@ -1,7 +1,7 @@
 const Users = require("../models/UserMode")
 
 const getUsersController = async(req,res)=>{
-    const users = await Users.find()
+    const users = await Users.find(req.query)
 
     res.json({
         status:true,
