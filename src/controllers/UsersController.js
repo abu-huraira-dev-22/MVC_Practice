@@ -1,13 +1,18 @@
-const Users = require("../models/UserMode")
+const Users = require("../models/UserMode");
 
-const getUsersController = async(req,res)=>{
-    const users = await Users.find(req.query)
+const getUsersController = async (req, res) => {
+  let query = {};
+  if (req.query.ageStart && req.query.ageEnd) {
+    query = {userName:req.query.userName, age: { $gte: req.query.ageStart, $lte: req.query.ageEnd } };
+  }
 
-    res.json({
-        status:true,
-        message:"All Users Fetched Successfully",
-        data:users
-    })
-}
+  const users = await Users.find(query);
 
-module.exports = {getUsersController}
+  res.json({
+    status: true,
+    message: "All Users Fetched Successfully",
+    data: users,
+  });
+};
+
+module.exports = { getUsersController };
