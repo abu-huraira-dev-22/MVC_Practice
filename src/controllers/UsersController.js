@@ -10,7 +10,7 @@ const getUsersController = async (req, res) => {
     query = {...queryFlag,age: { $gte: req.query.ageStart, $lte: req.query.ageEnd } };
   }
 
-  const users = await Users.find(query);
+  const users = await Users.find().sort('age').limit(2).skip(1)
 
   res.json({
     status: true,
