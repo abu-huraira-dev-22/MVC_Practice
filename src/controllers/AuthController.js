@@ -1,3 +1,4 @@
+const jwt= require("jsonwebtoken");
 const Users = require("../models/UserMode");
 
 const signupController = async (req, res) => {
@@ -24,7 +25,8 @@ const signupController = async (req, res) => {
 };
 
 const loginController = async (req, res) => {
-  const { email, password } = req.body;
+ try {
+   const { email, password } = req.body;
   const myUser = await Users.findOne({
     email: email,
   });
@@ -32,17 +34,23 @@ const loginController = async (req, res) => {
   if (!myUser) return res.json({
     status:false,
     message:"No User Found"
-  });;
+  });
 
   if (myUser.password != password) return res.json({
     status:false,
     message:"Invalid Credentials"
   });
 
+  const token = jwt.sign({email:myUser.email,userName:myUser.userName,id:myUser._id}, process.env.JWT_SECRET)
+
   res.json({
     status: true,
     message: "User logged in Successfully",
+    token:token
   });
+ } catch (error) {
+  console.log(error.message, "==>>> error")
+ }
 };
 
 module.exports = { signupController, loginController };
