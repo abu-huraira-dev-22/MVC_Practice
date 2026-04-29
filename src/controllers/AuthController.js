@@ -24,6 +24,21 @@ const signupController = async (req, res) => {
 };
 
 const loginController = async (req, res) => {
+  const { email, password } = req.body;
+  const myUser = await Users.findOne({
+    email: email,
+  });
+
+  if (!myUser) return res.json({
+    status:false,
+    message:"No User Found"
+  });;
+
+  if (myUser.password != password) return res.json({
+    status:false,
+    message:"Invalid Credentials"
+  });
+
   res.json({
     status: true,
     message: "User logged in Successfully",

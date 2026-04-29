@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
 const usersRoutes = require("./routes/UsersRoutes");
+const cors = require('cors')
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ async function main() {
 const app = express();
 
 app.use(express.json());
+app.use(cors())
 
 app.get("/health", (req, res) => {
   res.json({
