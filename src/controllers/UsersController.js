@@ -1,4 +1,5 @@
 const Users = require("../models/UserMode");
+const jwt= require("jsonwebtoken");
 
 const getUsersController = async (req, res) => {
   let query = {};
@@ -23,6 +24,8 @@ const updateUserController = async(req,res)=>{
   const updateDetails = req.body
   const token = req.headers.authorization
   console.log(token,"==>> token")
+  const decoded = jwt.verify(token,process.env.JWT_SECRET)
+  console.log(decoded)
 }
 
 module.exports = { getUsersController,updateUserController };
