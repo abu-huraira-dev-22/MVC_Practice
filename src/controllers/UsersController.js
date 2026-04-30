@@ -19,4 +19,10 @@ const getUsersController = async (req, res) => {
   });
 };
 
-module.exports = { getUsersController };
+const updateUserController = async(req,res)=>{
+  const updateDetails = req.body
+  const token = req.headers.authorization
+  console.log(token,"==>> token")
+}
+
+module.exports = { getUsersController,updateUserController };
